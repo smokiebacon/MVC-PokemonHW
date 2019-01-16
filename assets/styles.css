@@ -3,4 +3,23 @@ body {
   bottom: 30px;
   background-size: cover;
   font-family: 'Lakki Reddy', cursive;
+  text-align: center;
+}
+
+.pokemon {
+  border: 5px solid black;
+}
+
+.pokename a{
+  font-size: 26px;
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+#logo {
+  width: 300px;
+  height: auto;
 }

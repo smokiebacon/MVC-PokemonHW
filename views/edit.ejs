@@ -1,0 +1,16 @@
+<% include partials/header.ejs %>
+<body>
+<% include partials/nav.ejs %>
+
+<h1>Edit a Pokemon</h1>
+
+<form id="changemon" action="/pokemon/<%=index%>?_method=PUT" method="POST"> 
+    <input type="text" name="name" placeholder="pokemon name" value="<%= pokemon.name %>">
+    <input type="text" name="img" placeholder="img" value="<%= pokemon.img %>">
+<button type="submit">Submit Changes </button>
+</form>
+</body>
+<% include partials/footer.ejs %>
+
+</html>
+

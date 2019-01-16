@@ -3,10 +3,16 @@
 <% include partials/nav.ejs %>
     <ul class="pokemon">
          <% pokes.forEach((poke, index) => { %>
-        <li><a href="/pokemon/<%=index%>"> <%= poke.name %> </a></li>
+        <li class="pokename"><a href="/pokemon/<%=index%>"> <%= poke.name %> </a></li>
+        <li><a href="/pokemon/<%= index %>/edit">Edit Pokemon</a></li>
+            <form action="/pokemon/<%= index %>/?_method=DELETE" method="POST">
+                <button type="submit">Delete</button>
+            </form>
          <% }) %>
     </ul>
         <a href="/pokemon/new">Create a New Pokemon</a>
+        
+
 </body>
 <% include partials/footer.ejs %>   
 </html>
