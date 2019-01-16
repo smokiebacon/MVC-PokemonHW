@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="/assets/styles.css" type="text/css">
-
-        <meta charset="utf-8">
-        <title>Fruit</title>
-    </head>
+<% include partials/header.ejs %>
     <body>
+    <% include partials/nav.ejs %>
+
         <h1>pokemon page</h1>
         <%= pokemon.name %>
        <img src=" <%= pokemon.img %>">
     </body>
+    <% include partials/footer.ejs %>
+    
 </html>

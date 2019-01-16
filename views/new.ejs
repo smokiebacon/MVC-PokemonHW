@@ -4,12 +4,18 @@
         <link rel="stylesheet" href="/assets/styles.css" type="text/css">
 
         <meta charset="utf-8">
-        <title>Fruit</title>
-    </head>
-    <body>
-        
-        <h1>pokemon page</h1>
-        <%= pokemon.name %>
-       <img src=" <%= pokemon.img %>">
-    </body>
+        <title>Create</title>
+</head>
+<body>
+<% include partials/nav.ejs %>
+
+<h1>Create New Pokemon Page</h1>
+<form id="newmon" method="POST" action="/pokemon">
+    <input type="text" name="name" placeholder="pokemon name" value="">
+    <input type="text" name="img" placeholder="img" value="">
+<button type="submit">Create New Pokemon </button>
+</form>
+</body>
+<% include partials/footer.ejs %>
+
 </html>

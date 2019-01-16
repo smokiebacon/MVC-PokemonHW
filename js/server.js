@@ -1,11 +1,9 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-
 const app = express();
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/assets', express.static('assets'))
-
 
 const Pokemon = require('../models/pokemon');
 
@@ -15,6 +13,22 @@ app.get('/pokemon', (req, res) => {
        pokes : Pokemon 
     });
 })
+
+//POST route
+app.post('/pokemon', (req, res) => {
+    Pokemon.push(req.body);
+    res.redirect('/pokemon');
+})
+
+
+//new route
+app.get('/pokemon/new', (req, res) => {
+    res.render('new.ejs')
+    });
+
+
+
+
 //show route
 app.get('/pokemon/:id', (req,res) => {
     
@@ -23,10 +37,6 @@ app.get('/pokemon/:id', (req,res) => {
     })
 })
 
-//add new pokemon route
-app.post('pokemon/:id/new', (req, res) => {
-    res.render('new.ejs');
-})
 
 //delete pokemon route
 
@@ -37,3 +47,5 @@ app.post('pokemon/:id/new', (req, res) => {
 app.listen(3000, () => {
     console.log('Server is listening on port 3000');
   });
+
+module.exports = app;
