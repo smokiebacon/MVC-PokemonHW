@@ -4,11 +4,28 @@
 
 <h1>Edit a Pokemon</h1>
 
+<div class="container">
+    <% typeof msg != 'undefined' ? msg : '' %>
+     <form action="/pokemon" method="POST" enctype="multipart/form-data">
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>File</span>
+        <input name="myImage" type="file">
+      </div>
+      <div class="file-path-wrapper">
+        <input class="file-path validate" type="text" placeholder="Awaiting file input...">
+      </div>
+      <button id="uploadbtn" type="submit">Upload Image</button>
+    </div>
+  </form>
+        
+</div>
 <form id="changemon" action="/pokemon/<%=index%>?_method=PUT" method="POST"> 
     <input type="text" name="name" placeholder="pokemon name" value="<%= pokemon.name %>">
     <input type="text" name="img" placeholder="img" value="<%= pokemon.img %>">
 <button type="submit">Submit Changes </button>
 </form>
+<% include partials/scripts.ejs %>
 </body>
 <% include partials/footer.ejs %>
 

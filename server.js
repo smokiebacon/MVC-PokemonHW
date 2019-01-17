@@ -1,14 +1,52 @@
 const express = require('express');
+const multer = require('multer');
+const path = require('path');
+
+// Set Storage Engine
+const storage = multer.diskStorage( {
+    destination: './public/uploads/',
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + 
+        path.extname(file.originalname));
+    }
+});
+
+//init upload
+const upload = multer( {
+    storage : storage,
+    limits: {fileSize: 10000000},       //set file size in bytes limit
+    fileFilter: function (req, file, cb) {
+        checkFileType(file, cb);
+    }
+}).single('myImage');
+
+//check File Type
+function checkFileType(file, cb) {
+    //allowed extensions
+    const fileTypes = /jpeg|jpg|png|gif/;
+    //check extention
+    const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+    //check mime
+    const mimetype = fileTypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb('Error: Only images are allowed.');
+    }
+}
+
 const app = express();
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
+app.use('/public', express.static('public'))
 
-app.use('/assets', express.static('assets'))
-
-const Pokemon = require('../models/pokemon');
+const Pokemon = require('./models/pokemon');
 
 //index route
 app.get('/pokemon', (req, res) => {
@@ -36,7 +74,14 @@ app.get('/pokemon/:id/edit', (req,res) => {
 //POST route
 app.post('/pokemon', (req, res) => {
     Pokemon.push(req.body);
-    res.redirect('/pokemon');
+    upload(req, res, (err) => {
+        if (err){
+            res.redirect('/pokemon');
+        } else {
+            console.log(req.file);
+        }
+    })
+    
 })
 
 //PUT or UPDATE route
